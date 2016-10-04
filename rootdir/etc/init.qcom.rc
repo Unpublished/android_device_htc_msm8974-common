@@ -270,11 +270,6 @@ service audiod /system/bin/audiod
     user system
     group system
 
-service config_bluetooth /system/bin/sh /system/etc/init.qcom.bt.sh "onboot"
-    class late_start
-    user root
-    oneshot
-
 service dhcpcd_bnep0 /system/bin/dhcpcd -BKLG
     disabled
     oneshot
