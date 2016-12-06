@@ -34,7 +34,7 @@ PRODUCT_AAPT_CONFIG := normal
 PRODUCT_AAPT_PREF_CONFIG := xxhdpi
 
 # Dot View Case
-PRODUCT_PACKAGES += Dotcase
+#PRODUCT_PACKAGES += Dotcase
 
 # Gesture Handler
 PRODUCT_PACKAGES += GestureHandler
@@ -113,8 +113,7 @@ PRODUCT_PACKAGES += \
     libshim_log
 
 # Gello
-PRODUCT_PACKAGES += \
-    Gello
+#PRODUCT_PACKAGES +=  Gello
 
 # Graphics
 PRODUCT_PACKAGES += \
