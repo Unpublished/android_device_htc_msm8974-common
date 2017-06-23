@@ -55,7 +55,6 @@ on init
 
 on fs
     mount_all /fstab.qcom
-    swapon_all /fstab.qcom
 
 on post-fs-data
     # Create directories for tombstones
@@ -336,6 +335,10 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     oneshot
 
 ## Properties start here
+on property:sys.boot_completed=1
+    # Enable ZRAM on boot_complete
+    swapon_all /fstab.qcom
+
 on property:bluetooth.hciattach=true
     start hciattach
 
