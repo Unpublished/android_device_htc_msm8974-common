@@ -37,4 +37,9 @@
     <string name="action_launch_camera">Launch camera</string>
     <string name="action_torch">Toggle torch</string>
 
+    <!-- Touchscreen gesture haptic feedback -->
+    <string name="touchscreen_gesture_extras">Extras</string>
+    <string name="touchscreen_gesture_haptic_feedback">Haptic feedback</string>
+    <string name="touchscreen_gesture_haptic_feedback_summary">Vibrate when a touchscreen gesture is detected</string>
+
 </resources>

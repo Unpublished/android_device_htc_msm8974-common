@@ -1,6 +1,7 @@
 /*
- * Copyright (C) 2016 The CyanogenMod Project
  * Copyright (C) 2014 SlimRoms Project
+ *               2016 The CyanogenMod Project
+ *               2017 The LineageOS Project
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +29,7 @@ import android.hardware.SensorEvent;
 import android.hardware.camera2.CameraManager;
 import android.hardware.camera2.CameraCharacteristics;
 import android.hardware.camera2.CameraAccessException;
+import android.media.AudioManager;
 import android.os.IBinder;
 import android.os.PowerManager;
 import android.os.PowerManager.WakeLock;
@@ -63,6 +65,8 @@ public class HtcGestureService extends Service {
     private CameraManager mCameraManager;
     private String mTorchCameraId;
     private boolean mTorchEnabled = false;
+    private AudioManager mAudioManager;
+    private Vibrator mVibrator;
 
     private int mSwipeUpAction;
     private int mSwipeDownAction;
@@ -107,6 +111,8 @@ public class HtcGestureService extends Service {
         mCameraManager = (CameraManager) mContext.getSystemService(Context.CAMERA_SERVICE);
         mCameraManager.registerTorchCallback(mTorchCallback, null);
         mTorchCameraId = getTorchCameraId();
+        mAudioManager = (AudioManager) mContext.getSystemService(Context.AUDIO_SERVICE);
+        mVibrator = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
     }
 
     @Override
@@ -191,14 +197,12 @@ public class HtcGestureService extends Service {
     }
 
     private void handleCameraActivation() {
-        Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(500);
+        doHapticFeedback();
         launchCamera();
     }
 
     private void handleFlashlightActivation() {
-        Vibrator v = (Vibrator) mContext.getSystemService(Context.VIBRATOR_SERVICE);
-        v.vibrate(500);
+        doHapticFeedback();
         launchFlashlight();
     }
 
@@ -222,6 +226,16 @@ public class HtcGestureService extends Service {
             mCameraManager.setTorchMode(mTorchCameraId, !mTorchEnabled);
         } catch (CameraAccessException e) {
             // Ignore
+        }
+    }
+
+    private void doHapticFeedback() {
+        if (mVibrator == null || !mVibrator.hasVibrator()) {
+            return;
+        }
+
+        if (mAudioManager.getRingerMode() != AudioManager.RINGER_MODE_SILENT) {
+            mVibrator.vibrate(100);
         }
     }
 

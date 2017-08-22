@@ -60,4 +60,10 @@
 
     </PreferenceCategory>
 
+    <PreferenceCategory
+        android:key="extra_settings_key"
+        android:title="@string/touchscreen_gesture_extras" >
+
+    </PreferenceCategory>
+
 </PreferenceScreen>
