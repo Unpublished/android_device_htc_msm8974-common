@@ -86,6 +86,9 @@ BOARD_HARDWARE_CLASS += \
     hardware/cyanogen/cmhw \
     $(PLATFORM_PATH)/cmhw
 
+# Extended filesystem support
+TARGET_KERNEL_HAVE_EXFAT := true
+
 # FM Radio
 AUDIO_FEATURE_ENABLED_FM_POWER_OPT := true
 BOARD_HAVE_QCOM_FM := true
